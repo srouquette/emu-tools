@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-set -x
-
 GITHUB_REPO=https://raw.githubusercontent.com/srouquette/emu-tools
 
 rm -rf ~/Desktop/EmuTools*.desktop 2>/dev/null
