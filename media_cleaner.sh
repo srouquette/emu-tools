@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+shopt -s nullglob
+shopt -s dotglob
+
+source "$HOME/.emu-tools/setenv.sh"
+
 MEDIA_DIRS=(
     "$EMU_DIR/downloaded_media"
     "$EMU_DIR/tools/downloaded_media"
@@ -7,11 +12,6 @@ MEDIA_DIRS=(
 ROMS_DIRS=(
     "$EMU_DIR/roms"
 )
-
-shopt -s nullglob
-shopt -s dotglob
-
-source "$HOME/.emu-tools/setenv.sh"
 
 for i in "${MEDIA_DIRS[@]}"; do
     if [ -d "$i" ]; then MEDIA_DIR=$i; break; fi
