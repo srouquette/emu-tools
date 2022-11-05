@@ -23,34 +23,30 @@ done
 
 # Create Icons
 
-# name, icon, exec, file
+# file, name, icon, exec
 function create_desktop_icon {
 echo "#!/usr/bin/env xdg-open
 [Desktop Entry]
-Name=$1
-Icon=$2
-Exec=$3
+Name=$2
+Icon=$3
+Exec=$4
 Terminal=true
 Type=Application
-StartupNotify=false" > ~/Desktop/$4
-chmod +x ~/Desktop/$4
+StartupNotify=false" > ~/Desktop/$1
+chmod +x ~/Desktop/$1
 }
 
-create_desktop_icon "Uninstall EmuTools" "delete" \
-    "curl $GITHUB_REPO/main/uninstall.sh | bash -s --" \
-    "EmuToolsUninstall.desktop"
+create_desktop_icon "EmuToolsUninstall.desktop" "Uninstall EmuTools" "delete" \
+    "curl $GITHUB_REPO/main/uninstall.sh | bash -s --"
 
-create_desktop_icon "Update EmuTools" "bittorrent-sync" \
-    "curl $GITHUB_REPO/main/install.sh | bash -s --" \
-    "EmuToolsUpdate.desktop"
+create_desktop_icon "EmuToolsUpdate.desktop" "Update EmuTools" "bittorrent-sync" \
+    "curl $GITHUB_REPO/main/install.sh | bash -s --"
 
-create_desktop_icon "EmuMediaCleaner" "sweeper" \
-    "bash ~/.emu-tools/media_cleaner.sh" \
-    "EmuToolsMediaCleaner.desktop"
+create_desktop_icon "EmuToolsMediaCleaner.desktop" "EmuMediaCleaner" "sweeper" \
+    "bash ~/.emu-tools/media_cleaner.sh"
 
-create_desktop_icon "Import ROMs" "ubiquity-kde" \
-    "bash ~/.emu-tools/rsync_roms.sh" \
-    "EmuToolsImportRoms.desktop"
+create_desktop_icon "EmuToolsImportRoms.desktop" "Import ROMs" "ubiquity-kde" \
+    "bash ~/.emu-tools/rsync_roms.sh"
 
 source "$HOME/.emu-tools/setenv.sh"
 if [ -f ~/.emu-tools/.env ] && [ ! -z "$ENV_FILE" ]; then mv ~/.emu-tools/.env $ENV_FILE; fi
