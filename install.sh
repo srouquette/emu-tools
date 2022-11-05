@@ -36,7 +36,7 @@ echo '#!/usr/bin/env xdg-open
 [Desktop Entry]
 Name=EmuMediaCleaner
 Exec=bash ~/.emu-tools/media_cleaner.sh
-Icon=trash
+Icon=sweeper
 Terminal=true
 Type=Application
 StartupNotify=false' > ~/Desktop/EmuToolsMediaCleaner.desktop
@@ -46,7 +46,7 @@ echo '#!/usr/bin/env xdg-open
 [Desktop Entry]
 Name=Import ROMs
 Exec=bash ~/.emu-tools/rsync_roms.sh
-Icon=trash
+Icon=ubiquity-kde
 Terminal=true
 Type=Application
 StartupNotify=false' > ~/Desktop/EmuToolsImportRoms.desktop
