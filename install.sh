@@ -4,7 +4,7 @@ GITHUB_REPO=https://raw.githubusercontent.com/srouquette/emu-tools
 ZENITY_WIDTH=400
 
 rm -rf ~/Desktop/EmuTools*.desktop 2>/dev/null
-rm -rf ~/.emu-tools 2>/dev/null
+rm -rf ~/.emu-tools/*.sh 2>/dev/null
 mkdir -p ~/.emu-tools &>/dev/null
 
 curl $GITHUB_REPO/main/install.sh --silent --output ~/.emu-tools/install.sh
