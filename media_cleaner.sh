@@ -3,7 +3,7 @@
 shopt -s nullglob
 shopt -s dotglob
 
-source "~/.emu-tools/setenv.sh"
+source "$HOME/.emu-tools/setenv.sh"
 
 if [ ! -d "$EMU_DIR/downloaded_media" ]; then
   echo -e "$EMU_DIR/downloaded_media not found."

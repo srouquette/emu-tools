@@ -53,7 +53,7 @@ StartupNotify=false' > ~/Desktop/EmuToolsImportRoms.desktop
 chmod +x ~/Desktop/EmuToolsImportRoms.desktop
 
 
-source "~/.emu-tools/setenv.sh"
+source "$HOME/.emu-tools/setenv.sh"
 
 if [[ ! -d "$EMU_DIR" ]]; then
     EMU_DIRS=(

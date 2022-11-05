@@ -1,14 +1,17 @@
 #!/usr/bin/env bash
 
-source "~/.emu-tools/setenv.sh"
+ZENITY_WIDTH=400
+
+source "$HOME/.emu-tools/setenv.sh"
 
 REMOTE_DIR=$REMOTE_USER@$REMOTE_HOST:$REMOTE_EMU_DIR
 
 if [[ ! -d "$EMU_DIR" || -z "$REMOTE_DIR" ]]; then
-    zenity --error --title="Uninitialized" --text="Run install.sh" --width=400 2> /dev/null
+    zenity --error --title="Uninitialized" --text="Run install.sh" --width=$ZENITY_WIDTH
+    exit -1
 fi
 
-ans=$(zenity --info --width=400 \
+ans=$(zenity --info --width=$ZENITY_WIDTH \
         --title "rsync ROMs" \
         --text "local: $EMU_DIR\nremote: $REMOTE_DIR\noptions: <b>$RSYNC_OPTS</b>" \
         --ok-label "Import" \
@@ -31,6 +34,6 @@ fi
 rsync -avu -e ssh "$source/" "$target" $RSYNC_OPTS --info=progress2 |
     tr '\r' '\n' |
     awk '/^ / { print int(+$2) ; fflush() ; next } $0 { print "# " $0 }' |
-    zenity --width=400 --height=20 --progress --percentage=0 --text="Copying...." --auto-close --auto-kill --title="Copying $cardname"
+    zenity --width=$ZENITY_WIDTH --height=20 --progress --percentage=0 --text="Copying...." --auto-close --auto-kill --title="Copying $cardname"
 
 echo "done, you can close the window !"
