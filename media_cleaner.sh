@@ -13,17 +13,17 @@ shopt -s dotglob
 
 source "$HOME/.emu-tools/setenv.sh"
 
-for dir in "${MEDIA_DIRS[@]}"; do
-    if [ -d "$dir" ]; then MEDIA_DIR=$dir; break; fi
+for i in "${MEDIA_DIRS[@]}"; do
+    if [ -d "$i" ]; then MEDIA_DIR=$i; break; fi
 done
 
 if [ ! -d "$MEDIA_DIR" ]; then
-  echo -e "$MEDIA_DIR not found."
+  echo -e "$EMU_DIR/downloaded_media not found."
   exit -1
 fi
 
-for dir in "${ROMS_DIRS[@]}"; do
-    if [ -d "$dir" ]; then ROMS_DIR=$dir; break; fi
+for i in "${ROMS_DIRS[@]}"; do
+    if [ -d "$i" ]; then ROMS_DIR=$i; break; fi
 done
 
 if [ ! -d "$ROMS_DIR" ]; then
