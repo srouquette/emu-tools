@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-ZENITY_WIDTH=400
-
 source "$HOME/.emu-tools/setenv.sh"
 
 REMOTE_DIR=$REMOTE_USER@$REMOTE_HOST:$REMOTE_EMU_DIR

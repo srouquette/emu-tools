@@ -1,59 +1,63 @@
 #!/usr/bin/env bash
 
+set -x
+
 GITHUB_REPO=https://raw.githubusercontent.com/srouquette/emu-tools
-ZENITY_WIDTH=400
 
 rm -rf ~/Desktop/EmuTools*.desktop 2>/dev/null
-rm -rf ~/.emu-tools/*.sh 2>/dev/null
+rm -rf ~/.emu-tools 2>/dev/null
 mkdir -p ~/.emu-tools &>/dev/null
+mkdir -p ~/.config/emu-tools &>/dev/null
 
-curl $GITHUB_REPO/main/install.sh --silent --output ~/.emu-tools/install.sh
-curl $GITHUB_REPO/main/setenv.sh --silent --output ~/.emu-tools/setenv.sh
-curl $GITHUB_REPO/main/rsync_roms.sh --silent --output ~/.emu-tools/rsync_roms.sh
-curl $GITHUB_REPO/main/media_cleaner.sh --silent --output ~/.emu-tools/media_cleaner.sh
+# Download files
 
+FILES=(
+    'install.sh'
+    'setenv.sh'
+    'rsync_roms.sh'
+    'media_cleaner.sh'
+)
+
+for f in "${FILES[@]}"; do
+    curl $GITHUB_REPO/main/$f --silent --output ~/.emu-tools/$f
+    chmod +x ~/.emu-tools/$f
+done
+
+# Create Icons
+
+# name, icon, exec, file
+function create_desktop_icon {
 echo "#!/usr/bin/env xdg-open
 [Desktop Entry]
-Name=Uninstall EmuTools
-Exec=curl $GITHUB_REPO/main/uninstall.sh | bash -s --
-Icon=delete
+Name=$1
+Icon=$2
+Exec=$3
 Terminal=true
 Type=Application
-StartupNotify=false" > ~/Desktop/EmuToolsUninstall.desktop
-chmod +x ~/Desktop/EmuToolsUninstall.desktop
+StartupNotify=false" > ~/Desktop/$4
+chmod +x ~/Desktop/$4
+}
 
-echo "#!/usr/bin/env xdg-open
-[Desktop Entry]
-Name=Update EmuTools
-Exec=curl $GITHUB_REPO/main/install.sh | bash -s --
-Icon=bittorrent-sync
-Terminal=true
-Type=Application
-StartupNotify=false" > ~/Desktop/EmuToolsUpdate.desktop
-chmod +x ~/Desktop/EmuToolsUpdate.desktop
+create_desktop_icon "Uninstall EmuTools" "delete" \
+    "curl $GITHUB_REPO/main/uninstall.sh | bash -s --" \
+    "EmuToolsUninstall.desktop"
 
-echo '#!/usr/bin/env xdg-open
-[Desktop Entry]
-Name=EmuMediaCleaner
-Exec=bash ~/.emu-tools/media_cleaner.sh
-Icon=sweeper
-Terminal=true
-Type=Application
-StartupNotify=false' > ~/Desktop/EmuToolsMediaCleaner.desktop
-chmod +x ~/Desktop/EmuToolsMediaCleaner.desktop
+create_desktop_icon "Update EmuTools" "bittorrent-sync" \
+    "curl $GITHUB_REPO/main/install.sh | bash -s --" \
+    "EmuToolsUpdate.desktop"
 
-echo '#!/usr/bin/env xdg-open
-[Desktop Entry]
-Name=Import ROMs
-Exec=bash ~/.emu-tools/rsync_roms.sh
-Icon=ubiquity-kde
-Terminal=true
-Type=Application
-StartupNotify=false' > ~/Desktop/EmuToolsImportRoms.desktop
-chmod +x ~/Desktop/EmuToolsImportRoms.desktop
+create_desktop_icon "EmuMediaCleaner" "sweeper" \
+    "bash ~/.emu-tools/media_cleaner.sh" \
+    "EmuToolsMediaCleaner.desktop"
 
+create_desktop_icon "Import ROMs" "ubiquity-kde" \
+    "bash ~/.emu-tools/rsync_roms.sh" \
+    "EmuToolsImportRoms.desktop"
 
 source "$HOME/.emu-tools/setenv.sh"
+if [ -f ~/.emu-tools/.env ] && [ ! -z "$ENV_FILE" ]; then mv ~/.emu-tools/.env $ENV_FILE; fi
+
+# Configure
 
 if [[ ! -d "$EMU_DIR" ]]; then
     EMU_DIRS=(
@@ -94,11 +98,13 @@ REMOTE_HOST=$REMOTE_HOST
 REMOTE_USER=$REMOTE_USER
 REMOTE_EMU_DIR=$REMOTE_EMU_DIR
 RSYNC_OPTS=$RSYNC_OPTS
-" > ~/.emu-tools/.env
+" > $ENV_FILE
+
 echo -e "after setup:"
-cat ~/.emu-tools/.env
+cat $ENV_FILE
 
 if [[ ! -d "$EMU_DIR" || -z "$REMOTE_HOST" || -z "$REMOTE_USER" || -z "$REMOTE_EMU_DIR" ]]; then
+    echo -e "some env were not properly configured."
     exit -1
 fi
 
@@ -110,5 +116,5 @@ if [ -f ~/.ssh/id_rsa ] && [ -z "$REMOTE_SSH" ] && zenity --question --title="ss
     REMOTE_SSH=$REMOTE_USER@$REMOTE_HOST
     ssh-copy-id $REMOTE_SSH
     rc=$?
-    if [ "$rc" == "0" ]; then echo "REMOTE_SSH=$REMOTE_SSH" >> ~/.emu-tools/.env; fi
+    if [ "$rc" == "0" ]; then echo "REMOTE_SSH=$REMOTE_SSH" >> $ENV_FILE; fi
 fi

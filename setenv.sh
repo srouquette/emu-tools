@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
 
-if [ ! -f ~/.emu-tools/.env ]; then exit 0; fi
+export ENV_FILE=~/.config/emu-tools/.env
+export ZENITY_WIDTH=400
 
-# Show env vars
-grep -v '^#' ~/.emu-tools/.env
+if [ -f $ENV_FILE ]; then
+    # Show env vars
+    grep -v '^#' $ENV_FILE
 
-# Export env vars
-export $(grep -v '^#' ~/.emu-tools/.env | xargs)
+    # Export env vars
+    export $(grep -v '^#' $ENV_FILE | xargs)
+fi
