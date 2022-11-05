@@ -58,7 +58,9 @@ source "$HOME/.emu-tools/setenv.sh"
 if [[ ! -d "$EMU_DIR" ]]; then
     EMU_DIRS=(
         '/home/deck/retrodeck'
+        '/home/deck/.emulationstation'
         '/home/deck/Emulation'
+        '/run/media/mmcblk0p1/Emulation'
         '/Emulation'
     )
     for emu_dir in "${EMU_DIRS[@]}"; do
