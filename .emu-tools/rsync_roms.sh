@@ -29,9 +29,6 @@ else
     exit
 fi
 
-rsync -avu -e ssh "$source/" "$target" $RSYNC_OPTS --info=progress2 |
-    tr '\r' '\n' |
-    awk '/^ / { print int(+$2) ; fflush() ; next } $0 { print "# " $0 }' |
-    zenity --width=$ZENITY_WIDTH --height=20 --progress --percentage=0 --text="Copying...." --auto-close --auto-kill --title="Copying $cardname"
+rsync -avu -e ssh "$source/" "$target" $RSYNC_OPTS --info=progress2
 
-echo "done, you can close the window !"
+zenity --info --title="Mission" --text="Complete!" --width=$ZENITY_WIDTH
