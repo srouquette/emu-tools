@@ -31,4 +31,4 @@ fi
 
 rsync -avu -e ssh "$source/" "$target" $RSYNC_OPTS --info=progress2
 
-zenity --info --title="Mission" --text="Complete!" --width=$ZENITY_WIDTH
+zenity --info --title="Mission" --text="Complete!"

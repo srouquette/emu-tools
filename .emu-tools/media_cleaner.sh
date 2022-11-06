@@ -47,5 +47,5 @@ for dir in "$MEDIA_DIR/"*; do
   done
 done
 
-zenity --info --title="Mission" --text="Complete!" --width=$ZENITY_WIDTH
+zenity --info --title="Mission" --text="Complete!"
 
