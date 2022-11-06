@@ -5,7 +5,7 @@ source "$HOME/.emu-tools/setenv.sh"
 REMOTE_DIR=$REMOTE_USER@$REMOTE_HOST:$REMOTE_EMU_DIR
 
 if [[ ! -d "$EMU_DIR" || -z "$REMOTE_DIR" ]]; then
-    zenity --error --title="Uninitialized" --text="Run install.sh" --width=$ZENITY_WIDTH
+    zenity --error --title="Uninitialized" --text="Run install.sh" --width=$ZENITY_WIDTH 2> /dev/null
     exit -1
 fi
 
@@ -14,7 +14,7 @@ ans=$(zenity --info --width=$ZENITY_WIDTH \
         --text "local: $EMU_DIR\nremote: $REMOTE_DIR\noptions: <b>$RSYNC_OPTS</b>" \
         --ok-label "Import" \
         --extra-button "Export" \
-        --extra-button "Cancel");
+        --extra-button "Cancel" 2> /dev/null);
 
 rc=$?
 choice="${rc}-${ans}"
@@ -31,4 +31,4 @@ fi
 
 rsync -avu -e ssh "$source/" "$target" $RSYNC_OPTS --info=progress2
 
-zenity --info --title="Mission" --text="Complete!"
+zenity --info --title="Mission" --text="Complete!" 2> /dev/null

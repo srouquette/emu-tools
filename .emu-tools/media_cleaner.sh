@@ -18,7 +18,7 @@ for i in "${MEDIA_DIRS[@]}"; do
 done
 
 if [ ! -d "$MEDIA_DIR" ]; then
-  echo -e "$EMU_DIR/downloaded_media not found."
+  zenity --error --title="Not Found" --text="$EMU_DIR/downloaded_media not found." --width=$ZENITY_WIDTH 2> /dev/null
   exit -1
 fi
 
@@ -27,7 +27,7 @@ for i in "${ROMS_DIRS[@]}"; do
 done
 
 if [ ! -d "$ROMS_DIR" ]; then
-  echo -e "$EMU_DIR/roms not found."
+  zenity --error --title="Not Found" --text="$EMU_DIR/roms not found." --width=$ZENITY_WIDTH 2> /dev/null
   exit -1
 fi
 
@@ -47,5 +47,4 @@ for dir in "$MEDIA_DIR/"*; do
   done
 done
 
-zenity --info --title="Mission" --text="Complete!"
-
+zenity --info --title="Mission" --text="Complete!" 2> /dev/null

@@ -65,20 +65,20 @@ if [[ ! -d "$EMU_DIR" ]]; then
     done
 
     if [ -z "$EMU_DIR" ]; then
-        EMU_DIR=$(zenity --file-selection --directory --title="Emulation directory" --width=$ZENITY_WIDTH)
+        EMU_DIR=$(zenity --file-selection --directory --title="Emulation directory" --width=$ZENITY_WIDTH 2> /dev/null)
     fi
 fi
 
 if [ -z "$REMOTE_HOST" ]; then
-    REMOTE_HOST=$(zenity --entry --title="Remote host" --text="IP address:" --entry-text "192.168.2.8" --width=$ZENITY_WIDTH)
+    REMOTE_HOST=$(zenity --entry --title="Remote host" --text="IP address:" --entry-text "192.168.2.8" --width=$ZENITY_WIDTH 2> /dev/null)
 fi
 
 if [ -z "$REMOTE_USER" ]; then
-    REMOTE_USER=$(zenity --entry --title="Username" --text="Username:" --entry-text "pi" --width=$ZENITY_WIDTH)
+    REMOTE_USER=$(zenity --entry --title="Username" --text="Username:" --entry-text "pi" --width=$ZENITY_WIDTH 2> /dev/null)
 fi
 
 if [ -z "$REMOTE_EMU_DIR" ]; then
-    REMOTE_EMU_DIR=$(zenity --entry --title="Remote directory" --text="Directory on the remote server:" --entry-text "/mnt/Elements/shared/retrodeck" --width=$ZENITY_WIDTH)
+    REMOTE_EMU_DIR=$(zenity --entry --title="Remote directory" --text="Directory on the remote server:" --entry-text "/mnt/Elements/shared/retrodeck" --width=$ZENITY_WIDTH 2> /dev/null)
 fi
 
 if zenity --question --title="rsync options" --text="--delete-after?" --width=$ZENITY_WIDTH 2> /dev/null; then
