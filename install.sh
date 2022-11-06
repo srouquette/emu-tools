@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-GITHUB_REPO=https://raw.githubusercontent.com/srouquette/emu-tools/beta
+GITHUB_REPO=https://raw.githubusercontent.com/srouquette/emu-tools/main
 
 rm -rf ~/Desktop/EmuTools*.desktop 2>/dev/null
 rm -rf ~/.emu-tools 2>/dev/null
