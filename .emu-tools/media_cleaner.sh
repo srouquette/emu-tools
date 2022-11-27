@@ -34,12 +34,12 @@ fi
 for dir in "$MEDIA_DIR/"*; do
   core=$(basename "$dir")
   echo -e "scanning $core..."
-  # if [ "$core" != "snes" ]; then continue; fi
+  # if [ "$core" != "psx" ]; then continue; fi
   for file in "$MEDIA_DIR/$core/covers/"*; do
     filename=$(basename "$file")
     game="${filename%.*}"
     searchEscaped=$(sed 's/[^^]/[&]/g; s/\^/\\^/g' <<<"$game")
-    found=$(find "$ROMS_DIR/$core" -regextype egrep -regex ".*$searchEscaped\..{2,4}$" | wc -l)
+    found=$(find "$ROMS_DIR/$core" -type f -o -type d -regextype egrep -regex ".*$searchEscaped\..{2,4}$" | wc -l)
     if [ $found -eq 0 ]; then
       echo -e "delete media/$core/$game"
       find "$MEDIA_DIR/$core" -regextype egrep -regex ".*$searchEscaped\..{3}$" -delete 2> /dev/null

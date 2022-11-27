@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.4
+
+- media_cleaner: fix support for directory interpreted as files
+
 ## 1.0.3
 
 - make uninstaller completely offline (was running only 2 commands)
