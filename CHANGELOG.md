@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.1.0
+
+- `symlinks.sh`: Create symlinks from `~` to `${EMU_DIR}` when the emulator doesn't use `${EMU_DIR}/storage` to store texture packs
+
 ## 1.0.4
 
 - media_cleaner: fix support for directory interpreted as files

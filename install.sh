@@ -13,6 +13,7 @@ FILES=(
     'setenv.sh'
     'rsync_roms.sh'
     'media_cleaner.sh'
+    'symlinks.sh'
 )
 
 for f in "${FILES[@]}"; do
@@ -46,6 +47,9 @@ create_desktop_icon "EmuToolsMediaCleaner.desktop" "EmuMediaCleaner" "sweeper" \
 
 create_desktop_icon "EmuToolsImportRoms.desktop" "Import ROMs" "ubiquity-kde" \
     "bash ~/.emu-tools/rsync_roms.sh"
+
+create_desktop_icon "EmuToolsSymlinks.desktop" "Create Symlinks" "link" \
+    "bash ~/.emu-tools/symlinks.sh"
 
 source "$HOME/.emu-tools/setenv.sh"
 if [ -f ~/.emu-tools/.env ] && [ ! -z "$ENV_FILE" ]; then mv ~/.emu-tools/.env $ENV_FILE; fi

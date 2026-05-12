@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# Remove ES-DE medias when the associated rom isn't found
+
 shopt -s nullglob
 shopt -s dotglob
 
